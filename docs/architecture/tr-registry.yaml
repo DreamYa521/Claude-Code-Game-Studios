@@ -25,32 +25,1223 @@
 # STATUS VALUES: active | deprecated | superseded-by: TR-[system]-NNN
 
 version: 1
-last_updated: ""
+last_updated: "2026-05-31"
 
-requirements: []
+requirements:
+  # ==========================================================================
+  # Foundation Layer — 数据定义 (data-definitions)
+  # ==========================================================================
+  - id: TR-DEF-001
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "DataDef autoload 作为唯一数据入口，集中管理所有枚举、常量和 Resource 加载"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
 
-# --- EXAMPLE ENTRIES (remove when first real entries are added) ---
-#
-# - id: TR-combat-001
-#   system: combat
-#   gdd: design/gdd/combat-system.md
-#   requirement: "Player takes damage from enemies based on attack power minus defence"
-#   created: 2026-03-10
-#   revised: ""
-#   status: active
-#
-# - id: TR-combat-002
-#   system: combat
-#   gdd: design/gdd/combat-system.md
-#   requirement: "Combo window timing is 0.4 seconds between hits"
-#   created: 2026-03-10
-#   revised: "2026-04-01"
-#   status: active
-#
-# - id: TR-combat-003
-#   system: combat
-#   gdd: design/gdd/combat-system.md
-#   requirement: "Old damage formula using raw stats"
-#   created: 2026-03-10
-#   revised: ""
-#   status: superseded-by: TR-combat-001
+  - id: TR-DEF-002
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "UnitType 枚举定义 INFANTRY/ARCHER/CAVALRY 三种兵种"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-003
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "Faction 枚举定义 NEUTRAL/PLAYER/ENEMY 三个势力"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-004
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "PlanetAttribute 枚举定义 NORMAL/RICH/FORTRESS/BARREN 四种星球属性"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-005
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "TalentType 枚举定义 CONQUEROR/RESEARCHER/HOARDER/DIPLOMAT 四种国王天赋"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-006
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "DAMAGE_MATRIX 3×3 三角克制矩阵存储为 GDScript const Dictionary，倍率 1.5/1.0/0.75"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-007
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "全局常量 PRODUCTION_BASE_RATE=1.0, GARRISON_DEFAULT_MAX=20, KING_DEFAULT_LIFESPAN=30"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-008
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "UnitStatsTable/UnitStats Resource 类定义（attack/defense/move_speed），实例化为 .tres 文件供设计师调整"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-009
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "LevelData/PlanetDef/Connection Resource 类定义，关卡布局存储在 .tres 文件中"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-010
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "DataDef._ready() 中一次性 load() 所有 .tres 文件并缓存，运行时无额外文件 I/O"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-011
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: ".tres 文件加载失败时 push_error() 输出具体文件名 + 游戏不进入 PLAYING 状态"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-012
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "DataDef 设为 autoload 列表第一位，确保其他 autoload 初始化时数据已可用"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-013
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "Resource 类字段只增不删不重命名，旧字段用 @deprecated 标记保留"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DEF-014
+    system: data-definitions
+    gdd: design/gdd/data-definitions.md
+    requirement: "Runtime Resource 深拷贝使用 duplicate_deep(DEEP_DUPLICATE_ALL) 替代旧版 duplicate(true)"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Foundation Layer — 事件总线 (event-bus)
+  # ==========================================================================
+  - id: TR-EVT-001
+    system: event-bus
+    gdd: design/gdd/event-bus.md
+    requirement: "EventBus autoload 集中管理全部跨系统 Signal，系统间禁止直接 connect"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-EVT-002
+    system: event-bus
+    gdd: design/gdd/event-bus.md
+    requirement: "Signal 命名规范：snake_case 过去时，参数顺序为主体ID→旧值→新值，新增只追加不删除不重命名"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-EVT-003
+    system: event-bus
+    gdd: design/gdd/event-bus.md
+    requirement: "完整 12 个 Signal 目录：planet_garrison_changed, planet_owner_changed, planets_initialized, turn_ended, execution_phase_started, deployment_phase_started, battle_resolved, deployment_executed, king_died, king_succeeded, action_consumed, game_state_changed"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-EVT-004
+    system: event-bus
+    gdd: design/gdd/event-bus.md
+    requirement: "长期订阅方在 _ready() 中 connect()，短期订阅方必须在 _exit_tree() 中显式 disconnect()"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-EVT-005
+    system: event-bus
+    gdd: design/gdd/event-bus.md
+    requirement: "检测 Signal 回调中递归 emit 同一 Signal 并 push_error() + 阻止第二次 emit"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-EVT-006
+    system: event-bus
+    gdd: design/gdd/event-bus.md
+    requirement: "Signal 参数类型全部来自 DataDef（Faction, KingData, BattleResult, GameState.State），无裸 String/int"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-EVT-007
+    system: event-bus
+    gdd: design/gdd/event-bus.md
+    requirement: "EventBus 设为 autoload 第一位（与 DataDef 同为最高优先级），不含业务逻辑，只转发 Signal"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Foundation Layer — GameState 管理器 (gamestate-manager)
+  # ==========================================================================
+  - id: TR-GSM-001
+    system: gamestate-manager
+    gdd: design/gdd/gamestate-manager.md
+    requirement: "5 状态枚举 TITLE/PLAYING/PAUSED/VICTORY/DEFEAT，current_state 对外只读 getter"
+    adr: ADR-0003
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-GSM-002
+    system: gamestate-manager
+    gdd: design/gdd/gamestate-manager.md
+    requirement: "transition_to() 验证转换矩阵（7条合法转换），非法返回 false + push_warning()"
+    adr: ADR-0003
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-GSM-003
+    system: gamestate-manager
+    gdd: design/gdd/gamestate-manager.md
+    requirement: "每次合法转换自动广播 EventBus.game_state_changed.emit(old, new)"
+    adr: ADR-0003
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-GSM-004
+    system: gamestate-manager
+    gdd: design/gdd/gamestate-manager.md
+    requirement: "提供 is_playing() 和 is_game_over() 快捷查询方法"
+    adr: ADR-0003
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-GSM-005
+    system: gamestate-manager
+    gdd: design/gdd/gamestate-manager.md
+    requirement: "使用 GDScript enum + match 实现，纯逻辑无场景树依赖，可单元测试"
+    adr: ADR-0003
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Foundation Layer — 回合管理器 (turn-manager)
+  # ==========================================================================
+  - id: TR-TRN-001
+    system: turn-manager
+    gdd: design/gdd/turn-manager.md
+    requirement: "3阶段循环 DEPLOYMENT→EXECUTION→CLEANUP→DEPLOYMENT，不可跳转，阶段由 current_phase 枚举控制"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TRN-002
+    system: turn-manager
+    gdd: design/gdd/turn-manager.md
+    requirement: "submit_command() 仅在 DEPLOYMENT 阶段返回 true 并入队，其他阶段返回 false"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TRN-003
+    system: turn-manager
+    gdd: design/gdd/turn-manager.md
+    requirement: "end_turn() 触发 5 步骤快照模型：收集指令→拍快照→基于快照计算→统一应用→收尾"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TRN-004
+    system: turn-manager
+    gdd: design/gdd/turn-manager.md
+    requirement: "快照模型保证指令结算顺序无关——无论计算顺序，最终星球状态一致"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TRN-005
+    system: turn-manager
+    gdd: design/gdd/turn-manager.md
+    requirement: "阶段切换通过 EventBus 广播 deployment_phase_started/execution_phase_started/turn_ended"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TRN-006
+    system: turn-manager
+    gdd: design/gdd/turn-manager.md
+    requirement: "超限兵力按比例削减：ratio = available_garrison / total_outgoing，各指令 count = floor(count × ratio)"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TRN-007
+    system: turn-manager
+    gdd: design/gdd/turn-manager.md
+    requirement: "空回合（无任何指令）正常执行，产兵照常，turn_number +1"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TRN-008
+    system: turn-manager
+    gdd: design/gdd/turn-manager.md
+    requirement: "DEPLOYMENT 之外调用 end_turn() 返回 false + push_warning()"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TRN-009
+    system: turn-manager
+    gdd: design/gdd/turn-manager.md
+    requirement: "步骤 1 收集 AI 指令 compute_turn() + 玩家指令 get_pending()，合并为 all_commands"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TRN-010
+    system: turn-manager
+    gdd: design/gdd/turn-manager.md
+    requirement: "玩家指令和 AI 指令攻击同一目标星球时各自独立计算，先应用玩家结果再应用 AI 结果"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Core Layer — 星球系统 (planet-system)
+  # ==========================================================================
+  - id: TR-PLT-001
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "RuntimePlanetData Dictionary 维护 9 个字段：id/name/position/attribute/garrison/owner/max_garrison/production_rate/adjacent_ids"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-002
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "max_garrison = int(GARRISON_DEFAULT_MAX × ATTR_GARRISON_MULT[attribute])"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-003
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "production_rate = PRODUCTION_BASE_RATE × ATTR_PRODUCTION_MULT[attribute]"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-004
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "init_from_level(level_data) 一次性初始化：清空→构建RuntimePlanetData→构建双向邻接表→应用初始归属和驻兵→emit planets_initialized"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-005
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "update_garrison(id, delta)：delta可正可负，不允许 garrison<0，通过阶段 gate 拒绝非法阶段修改"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-006
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "set_owner(id, new_owner)：变更归属→广播 EventBus.planet_owner_changed，通过阶段 gate"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-007
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "are_connected(a, b) O(1) 邻接查询，get_adjacent_planets(id) 返回相邻星ID列表"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-008
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "get_planets_by_owner(faction) 按归属方筛选，返回 Array[Dictionary]"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-009
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "take_snapshot() 深拷贝全部 RuntimePlanetData，供 ADR-0004 快照模型使用"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-010
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "get_planet() 返回浅拷贝防止外部直接修改内部状态，所有修改通过 update_garrison()/set_owner()"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-011
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "连接双向自动处理：Connection{from:A, to:B} 等价于 A↔B，_build_adjacency() 自动建立双向邻接"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PLT-012
+    system: planet-system
+    gdd: design/gdd/planet-system.md
+    requirement: "Connection 引用不存在的 planet_id 时跳过并 push_warning()，initial_owner 无效 key 同理"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Core Layer — 兵种系统 (unit-system)
+  # ==========================================================================
+  - id: TR-UNT-001
+    system: unit-system
+    gdd: design/gdd/unit-system.md
+    requirement: "三种兵种属性：步兵(attack=10/defense=8/speed=1.0)、弓兵(12/5/1.2)、骑兵(15/6/1.5)"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-UNT-002
+    system: unit-system
+    gdd: design/gdd/unit-system.md
+    requirement: "三角克制链 INF→ARC→CAV→INF，DAMAGE_MATRIX 查表返回克制倍率"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-UNT-003
+    system: unit-system
+    gdd: design/gdd/unit-system.md
+    requirement: "get_counter(type) 和 get_weak_against(type) 克制查询辅助方法"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-UNT-004
+    system: unit-system
+    gdd: design/gdd/unit-system.md
+    requirement: "兵种属性存储在 unit_stats.tres Resource，设计师在编辑器中可调整"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-UNT-005
+    system: unit-system
+    gdd: design/gdd/unit-system.md
+    requirement: "MVP 玩家出征默认使用 INFANTRY，AI 可使用全部三种兵种"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Core Layer — 生产系统 (production-system)
+  # ==========================================================================
+  - id: TR-PRD-001
+    system: production-system
+    gdd: design/gdd/production-system.md
+    requirement: "apply_turn() 在 CLEANUP 步骤 5 调用，遍历所有非 NEUTRAL 星球产兵"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PRD-002
+    system: production-system
+    gdd: design/gdd/production-system.md
+    requirement: "累积产量模型：accumulated_production += production_rate，floor()≥1时产兵并扣减累积值"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PRD-003
+    system: production-system
+    gdd: design/gdd/production-system.md
+    requirement: "new_garrison = min(max_garrison, garrison + produced)，不超出驻兵上限"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PRD-004
+    system: production-system
+    gdd: design/gdd/production-system.md
+    requirement: "accumulated_production 存储在 RuntimePlanetData 中（新增字段，初始值 0）"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PRD-005
+    system: production-system
+    gdd: design/gdd/production-system.md
+    requirement: "NEUTRAL 星球不产兵，AI 星球使用相同公式产兵"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-PRD-006
+    system: production-system
+    gdd: design/gdd/production-system.md
+    requirement: "驻兵达上限时 accumulated_production 继续累积，降至上限以下后下一回合一次性产出"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Core Layer — 战斗结算 (combat-resolution)
+  # ==========================================================================
+  - id: TR-CBT-001
+    system: combat-resolution
+    gdd: design/gdd/combat-resolution.md
+    requirement: "比例力量模型：A_power = count × attack × counter_mult，D_power = count × defense × planet_defense_mult"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-CBT-002
+    system: combat-resolution
+    gdd: design/gdd/combat-resolution.md
+    requirement: "战损分配：power_ratio = max(A,D)/max(min(A,D),1)，优势方 loss_rate = 0.5/power_ratio，劣势方 loss_rate = 0.5+0.5×(1-1/ratio)"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-CBT-003
+    system: combat-resolution
+    gdd: design/gdd/combat-resolution.md
+    requirement: "最小损失为 1（双方兵力 >0 时），max(1, round(count × loss_rate))"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-CBT-004
+    system: combat-resolution
+    gdd: design/gdd/combat-resolution.md
+    requirement: "胜负判定：attacker_wins = (defender_survived <= 0)"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-CBT-005
+    system: combat-resolution
+    gdd: design/gdd/combat-resolution.md
+    requirement: "1v1 等力特例：双方各 1 兵且 A_power == D_power → 防守方胜"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-CBT-006
+    system: combat-resolution
+    gdd: design/gdd/combat-resolution.md
+    requirement: "空星球 (defender_count=0) → attacker_wins=true, attacker_loss=0, defender_loss=0"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-CBT-007
+    system: combat-resolution
+    gdd: design/gdd/combat-resolution.md
+    requirement: "resolve() 是纯函数——不访问全局状态，同输入永远同输出，可单元测试"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-CBT-008
+    system: combat-resolution
+    gdd: design/gdd/combat-resolution.md
+    requirement: "PLANET_DEFENSE_MULT: NORMAL=1.0, RICH=1.0, FORTRESS=1.5, BARREN=0.75"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-CBT-009
+    system: combat-resolution
+    gdd: design/gdd/combat-resolution.md
+    requirement: "单元测试覆盖 3×3×4=36 组合（兵种A×兵种D×星球属性）+ 边界（0兵/1兵/50兵）"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Core Layer — 占领系统 (occupation-system)
+  # ==========================================================================
+  - id: TR-OCC-001
+    system: occupation-system
+    gdd: design/gdd/occupation-system.md
+    requirement: "attacker_wins=true → transfer(target, attacker_faction)，同时 set_garrison(target, attacker_survived)"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-OCC-002
+    system: occupation-system
+    gdd: design/gdd/occupation-system.md
+    requirement: "attacker_wins=false → 目标星驻兵更新为防守方存活兵力，owner 不变"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-OCC-003
+    system: occupation-system
+    gdd: design/gdd/occupation-system.md
+    requirement: "步骤 4 应用顺序固定：先玩家指令后 AI 指令，保证结果确定性"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-OCC-004
+    system: occupation-system
+    gdd: design/gdd/occupation-system.md
+    requirement: "防御性检查：new_owner==current_owner 时跳过（禁止占领己方星球）"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-OCC-005
+    system: occupation-system
+    gdd: design/gdd/occupation-system.md
+    requirement: "空旷星球 (defender_count=0) 无需战斗即占领，驻兵=出征兵力（无损）"
+    adr: ADR-0006
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Core Layer — 出征系统 (deployment-system)
+  # ==========================================================================
+  - id: TR-DPL-001
+    system: deployment-system
+    gdd: design/gdd/deployment-system.md
+    requirement: "deploy(from, to, count, unit_type) 7 项合法性校验：己方星/非己方目标/相邻/≥1兵/≤驻兵/is_playing/DEPLOYMENT阶段"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DPL-002
+    system: deployment-system
+    gdd: design/gdd/deployment-system.md
+    requirement: "DeploymentCommand 结构：from_planet/to_planet/count/unit_type/player_owned"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DPL-003
+    system: deployment-system
+    gdd: design/gdd/deployment-system.md
+    requirement: "submit_command(cmd) 后立即扣除出发星驻兵（防止同一批兵重复使用）"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DPL-004
+    system: deployment-system
+    gdd: design/gdd/deployment-system.md
+    requirement: "get_pending() 返回当前等待结算的全部玩家指令，在步骤 1 被 TurnManager 调用"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DPL-005
+    system: deployment-system
+    gdd: design/gdd/deployment-system.md
+    requirement: "同星多条指令：每条校验 count<=实时garrison，逐条扣减，自动防超限"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DPL-006
+    system: deployment-system
+    gdd: design/gdd/deployment-system.md
+    requirement: "部署到空旷中立星 (garrison=0) 允许，到达后无战斗即占领"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DPL-007
+    system: deployment-system
+    gdd: design/gdd/deployment-system.md
+    requirement: "已提交指令不可撤销——确认即承诺，无回滚机制"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Core Layer — 国王系统 (king-system)
+  # ==========================================================================
+  - id: TR-KNG-001
+    system: king-system
+    gdd: design/gdd/king-system.md
+    requirement: "KingData 结构：name/talent/lifespan/actions_used/age/generation/talent_bonus"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-KNG-002
+    system: king-system
+    gdd: design/gdd/king-system.md
+    requirement: "每回合消耗 1 寿命（consume_turn() 在 CLEANUP 步骤 5 调用），actions_remaining = lifespan - actions_used"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-KNG-003
+    system: king-system
+    gdd: design/gdd/king-system.md
+    requirement: "actions_remaining==0 → 国王去世：emit king_died → GameState→PAUSED → 自动继位 → emit king_succeeded → GameState→PLAYING"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-KNG-004
+    system: king-system
+    gdd: design/gdd/king-system.md
+    requirement: "自动继位：随机名字+随机天赋，lifespan=30，generation+1，actions_used=0"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-KNG-005
+    system: king-system
+    gdd: design/gdd/king-system.md
+    requirement: "init_king() 游戏开始时创建初始国王（随机名字+随机天赋，generation=1），emit king_succeeded(null, king)"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-KNG-006
+    system: king-system
+    gdd: design/gdd/king-system.md
+    requirement: "MVP 天赋仅为标签（不影响机制），talent_bonus Dictionary 留空，Vertical Slice 填充效果"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-KNG-007
+    system: king-system
+    gdd: design/gdd/king-system.md
+    requirement: "actions_remaining() <= 3 时 UI 显示警告'国王年事已高'"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-KNG-008
+    system: king-system
+    gdd: design/gdd/king-system.md
+    requirement: "名字池：MALE_NAMES×10 + FEMALE_NAMES×10，随机抽取"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Core Layer — AI 敌人 (ai-enemy)
+  # ==========================================================================
+  - id: TR-AIE-001
+    system: ai-enemy
+    gdd: design/gdd/ai-enemy.md
+    requirement: "compute_turn() 在 TurnManager 步骤 1 调用，返回 Array[DeploymentCommand]"
+    adr: ADR-0007
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-AIE-002
+    system: ai-enemy
+    gdd: design/gdd/ai-enemy.md
+    requirement: "分阶段规则引擎：Phase 1 防御评估 → Phase 2 进攻规划 → Phase 3 冲突消解"
+    adr: ADR-0007
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-AIE-003
+    system: ai-enemy
+    gdd: design/gdd/ai-enemy.md
+    requirement: "威胁评估：threat_ratio = Σ(adj_enemy_garrison) / (planet.garrison + 1)，三级阈值"
+    adr: ADR-0007
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-AIE-004
+    system: ai-enemy
+    gdd: design/gdd/ai-enemy.md
+    requirement: "防守保留：defense_min = max(1, max_garrison × DEFENSE_RESERVE_RATIO)，默认 0.3"
+    adr: ADR-0007
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-AIE-005
+    system: ai-enemy
+    gdd: design/gdd/ai-enemy.md
+    requirement: "进攻价值评分 5 因子：目标产量×3.0 + 威胁×0.5 + 战损效率×2.0 + 属性价值 + 战略位置×0.5"
+    adr: ADR-0007
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-AIE-006
+    system: ai-enemy
+    gdd: design/gdd/ai-enemy.md
+    requirement: "三个可调 AI 参数：aggression(0-1)/defensiveness(0-1)/intelligence(0-1)，默认全 0.5"
+    adr: ADR-0007
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-AIE-007
+    system: ai-enemy
+    gdd: design/gdd/ai-enemy.md
+    requirement: "兵种选择：intelligence≥randf() 时选克制兵种，否则随机选"
+    adr: ADR-0007
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-AIE-008
+    system: ai-enemy
+    gdd: design/gdd/ai-enemy.md
+    requirement: "AI 不使用国王系统——无寿命约束，无代际传承"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-AIE-009
+    system: ai-enemy
+    gdd: design/gdd/ai-enemy.md
+    requirement: "同一出发星的总出兵 ≤ 驻兵（Phase 3 冲突消解 + ADR-0004 overdraft 安全网）"
+    adr: ADR-0007
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-AIE-010
+    system: ai-enemy
+    gdd: design/gdd/ai-enemy.md
+    requirement: "intelligence=1.0 时 AI 确定性输出（同输入→同指令），可单元测试"
+    adr: ADR-0007
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Feature Layer — 星图/关卡数据 (level-data)
+  # ==========================================================================
+  - id: TR-LVL-001
+    system: level-data
+    gdd: design/gdd/level-data.md
+    requirement: "LevelData Resource 结构：level_id/level_name/planets/connections/initial_owner/initial_garrison"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-LVL-002
+    system: level-data
+    gdd: design/gdd/level-data.md
+    requirement: "MVP 关卡 tutorial_1：4 颗星（地球/月球/火星/火卫一），3 条连接，初始 PLAYER 占1 + ENEMY 占1"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-LVL-003
+    system: level-data
+    gdd: design/gdd/level-data.md
+    requirement: "PlanetDef.id 重复检测→push_error()；Connection 引用不存在星球→push_warning()+跳过"
+    adr: ADR-0005
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-LVL-004
+    system: level-data
+    gdd: design/gdd/level-data.md
+    requirement: "关卡数据存储在 .tres 文件中，设计师在 Godot 编辑器中可视化编辑"
+    adr: ADR-0002
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Feature Layer — 胜负条件 (win-conditions)
+  # ==========================================================================
+  - id: TR-WIN-001
+    system: win-conditions
+    gdd: design/gdd/win-conditions.md
+    requirement: "check_victory()：敌方星球全部被消灭（get_planets_by_owner(ENEMY).is_empty()）"
+    adr: ADR-0003
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-WIN-002
+    system: win-conditions
+    gdd: design/gdd/win-conditions.md
+    requirement: "check_defeat()：玩家星球全部丢失（get_planets_by_owner(PLAYER).is_empty()）"
+    adr: ADR-0003
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-WIN-003
+    system: win-conditions
+    gdd: design/gdd/win-conditions.md
+    requirement: "check() 在 CLEANUP 步骤 5 生产后、国王消耗前执行，触发 VICTORY/DEFEAT 状态转换"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-WIN-004
+    system: win-conditions
+    gdd: design/gdd/win-conditions.md
+    requirement: "双方同时全灭 → 判定 DEFEAT（平局算玩家输）"
+    adr: ADR-0003
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-WIN-005
+    system: win-conditions
+    gdd: design/gdd/win-conditions.md
+    requirement: "国王寿命耗尽不算输——代际传承是机制不是终点"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Presentation Layer — 星图 UI (star-map-ui)
+  # ==========================================================================
+  - id: TR-SMU-001
+    system: star-map-ui
+    gdd: design/gdd/star-map-ui.md
+    requirement: "星球节点渲染：圆形24px，PLAYER蓝/ENEMY红/NEUTRAL灰，选中2px白色边框"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-SMU-002
+    system: star-map-ui
+    gdd: design/gdd/star-map-ui.md
+    requirement: "连接线渲染：2px半透明白线，选中星时连接线高亮#FFCC00"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-SMU-003
+    system: star-map-ui
+    gdd: design/gdd/star-map-ui.md
+    requirement: "交互：点击己方星选中→点击相邻敌星触发出征UI，点击非相邻敌星无响应"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-SMU-004
+    system: star-map-ui
+    gdd: design/gdd/star-map-ui.md
+    requirement: "订阅 5 个 EventBus 信号：planets_initialized, planet_owner_changed, planet_garrison_changed, turn_ended, game_ended"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-SMU-005
+    system: star-map-ui
+    gdd: design/gdd/star-map-ui.md
+    requirement: "详情面板显示：星球名/归属/属性/驻兵(当前/上限)/产兵速率/连接列表"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Presentation Layer — 出征 UI (deployment-ui)
+  # ==========================================================================
+  - id: TR-DUI-001
+    system: deployment-ui
+    gdd: design/gdd/deployment-ui.md
+    requirement: "面板元素：标题(出发星→目标星)/目标信息(名/属性/驻兵)/兵力滑块(1~garrison)/确认+取消按钮"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DUI-002
+    system: deployment-ui
+    gdd: design/gdd/deployment-ui.md
+    requirement: "滑块默认值=全部驻兵，拖动实时更新数字和'出发星剩余'"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DUI-003
+    system: deployment-ui
+    gdd: design/gdd/deployment-ui.md
+    requirement: "确认→调用 deploy()，成功关闭面板/失败显示红色提示；取消→关闭面板零指令"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-DUI-004
+    system: deployment-ui
+    gdd: design/gdd/deployment-ui.md
+    requirement: "快捷键：ESC取消/Enter确认"
+    adr: ADR-0001
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Presentation Layer — 回合控制 UI (turn-control-ui)
+  # ==========================================================================
+  - id: TR-TCU-001
+    system: turn-control-ui
+    gdd: design/gdd/turn-control-ui.md
+    requirement: "结束回合按钮状态：DEPLOYMENT可用/EXECUTION禁用'结算中...'/CLEANUP禁用'收尾中...'/非PLAYING隐藏"
+    adr: ADR-0003
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TCU-002
+    system: turn-control-ui
+    gdd: design/gdd/turn-control-ui.md
+    requirement: "回合数显示监听 turn_ended(turn_number)，初始第1回合"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TCU-003
+    system: turn-control-ui
+    gdd: design/gdd/turn-control-ui.md
+    requirement: "阶段指示：监听 deployment_phase_started/execution_phase_started 更新文本"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-TCU-004
+    system: turn-control-ui
+    gdd: design/gdd/turn-control-ui.md
+    requirement: "快捷键 Space/E → 结束回合（仅 PLAYING+DEPLOYMENT），双击防重复点击"
+    adr: ADR-0003
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Presentation Layer — 国王 UI (king-ui)
+  # ==========================================================================
+  - id: TR-KUI-001
+    system: king-ui
+    gdd: design/gdd/king-ui.md
+    requirement: "常驻面板显示：代际数/天赋标签/名字/寿命条(长度=remaining/lifespan)+数字"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-KUI-002
+    system: king-ui
+    gdd: design/gdd/king-ui.md
+    requirement: "寿命条颜色：绿(>50%)→黄(30-50%)→橙(10-30%)→红(<10%)，remaining≤3 闪烁警告"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-KUI-003
+    system: king-ui
+    gdd: design/gdd/king-ui.md
+    requirement: "去世弹窗：'名字 驾崩，第N代国王，享年N回合'+继承人信息+'继续'按钮→关闭→GameState恢复PLAYING"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-KUI-004
+    system: king-ui
+    gdd: design/gdd/king-ui.md
+    requirement: "订阅 4 个信号：action_consumed/king_died/king_succeeded/game_state_changed"
+    adr: ADR-0008
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  # ==========================================================================
+  # Presentation Layer — 战斗动画 (battle-animation)
+  # ==========================================================================
+  - id: TR-BAN-001
+    system: battle-animation
+    gdd: design/gdd/battle-animation.md
+    requirement: "兵力移动动画：短线沿连接线移动，颜色=出发方颜色，速度400px/s，每条指令1条短线"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-BAN-002
+    system: battle-animation
+    gdd: design/gdd/battle-animation.md
+    requirement: "动画序列：execution_phase_started→所有指令并行播放移动动画→到达时占领闪烁→全部完成→turn_ended"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-BAN-003
+    system: battle-animation
+    gdd: design/gdd/battle-animation.md
+    requirement: "占领闪烁：3次(旧色↔新色交替)，每次150ms，总~900ms"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-BAN-004
+    system: battle-animation
+    gdd: design/gdd/battle-animation.md
+    requirement: "跳过选项：点击屏幕→全部动画瞬移到终点；设置可勾选'跳过战斗动画'"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active
+
+  - id: TR-BAN-005
+    system: battle-animation
+    gdd: design/gdd/battle-animation.md
+    requirement: "动画期间星图不接受点击，全部完成后 turn_ended 恢复操作"
+    adr: ADR-0004
+    created: 2026-05-31
+    revised: ""
+    status: active

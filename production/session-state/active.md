@@ -1,0 +1,164 @@
+# Session State — 2026-06-02
+
+<!-- STATUS -->
+Epic: Pre-Production
+Feature: /sprint-plan 完成
+Task: ✅ Sprint Plan 已生成 — 下一步 /gate-check Pre-Production→Production
+<!-- /STATUS -->
+
+---
+
+## 项目总览
+
+| 层 | 系统数 | GDD | ADR | Epic | Stories |
+|-----|--------|-----|-----|------|---------|
+| Foundation | 4 | ✅ | ADR-0001~0004 | ✅ | 9 |
+| Core | 8 | ✅ | ADR-0005~0008 | ✅ | 17 |
+| Feature | 2 | ✅ | — | ✅ | 4 |
+| Presentation | 5 | ✅ | — | ✅ | 8 |
+| **总计** | **19** | **19/19** | **8** | **19/19** | **38** |
+
+## 本轮新完成（对话 5/5）
+
+- [x] Foundation 补充：event-bus story-003 (Presentation 层 3 个新信号：deployment_requested / animations_complete / king_succession_complete)
+- [x] Feature Stories ×4：level-data(2) + win-conditions(2)
+- [x] Presentation Stories ×8：star-map-ui(2) + deployment-ui(1) + turn-control-ui(1) + king-ui(2) + battle-animation(2)
+- [x] level-data: story-001 (LevelData/PlanetDef/Connection Resource类+tutorial_1.tres), story-002 (init_from_level集成+边界校验)
+- [x] win-conditions: story-001 (check_victory/check_defeat/check核心), story-002 (回合管线集成+GameState+EventBus)
+- [x] star-map-ui: story-001 (星球节点+连接线+兵力渲染), story-002 (交互+详情面板+EventBus刷新)
+- [x] deployment-ui: story-001 (滑块+确认/取消+deploy调用+快捷键)
+- [x] turn-control-ui: story-001 (按钮+回合数+阶段指示+快捷键)
+- [x] king-ui: story-001 (代际+名字+寿命条+天赋标签), story-002 (去世/继位弹窗+事件集成)
+- [x] battle-animation: story-001 (移动动画+并行播放+跳过), story-002 (占领闪烁+动画序列)
+- [x] `production/epics/level-data/EPIC.md` — TR-ID 回填 + Stories 表格
+- [x] `production/epics/win-conditions/EPIC.md` — TR-ID 回填 + Stories 表格
+- [x] `production/epics/star-map-ui/EPIC.md` — TR-ID 回填 + Stories 表格
+- [x] `production/epics/deployment-ui/EPIC.md` — TR-ID 回填 + Stories 表格
+- [x] `production/epics/turn-control-ui/EPIC.md` — TR-ID 回填 + Stories 表格
+- [x] `production/epics/king-ui/EPIC.md` — TR-ID 回填 + Stories 表格
+- [x] `production/epics/battle-animation/EPIC.md` — TR-ID 回填 + Stories 表格
+- [x] `production/epics/index.md` — 7 epics × stories 已更新，总计 19 epics / 38 stories
+- [x] `production/session-state/active.md` — 本文件
+
+## 之前完成（对话 1/5 ~ 4/5）
+
+<details>
+<summary>展开查看</summary>
+
+### 对话 4/5
+- [x] Core Stories ×6：deployment-system(2) + king-system(2) + ai-enemy(2)
+
+### 对话 3/5
+- [x] Core Stories ×6：production-system(2) + combat-resolution(2) + occupation-system(2)
+
+### 对话 2/5
+- [x] Core Stories ×5：planet-system(3) + unit-system(2)
+
+### 对话 1/5
+- [x] Foundation Stories ×8：data-definitions(3) + event-bus(2) + gamestate-manager(1) + turn-manager(2)
+- [x] ADR-0001~0004 状态 Proposed → Accepted
+
+</details>
+
+## ⚠️ 遗留提醒
+
+| 事项 | 说明 |
+|------|------|
+| ~~TR Registry 为空~~ | ✅ 已解决 — 129 条 TR-ID 已注册 (2026-05-31) |
+| ~~Control Manifest 未创建~~ | ✅ 已解决 — control-manifest.md 已创建 (2026-05-31) |
+| 开发流程第4步 | `/create-epics` + `/create-stories` 已全部完成 |
+| 开发流程第5步 | `/create-stories` 5 次对话全部完成 |
+
+## 本轮新完成 — /sprint-plan (2026-06-02)
+
+- [x] 读取全部 19 个 EPIC.md + 38 个 Story 文件，提取依赖链和估算
+- [x] 3 Sprint 规划：Foundation(9stories/~11.5h) → Core War(17/~27h) → Playable Demo(12/~16h)
+- [x] 依赖图（planet-system ⚠️ 瓶颈识别 + 并行机会标注）
+- [x] Risk Register（5 风险项）
+- [x] Story Type 分布 + Testing Gate 映射
+- [x] `production/sprints/sprint-plan.md` — 完整 Sprint Plan
+
+## 下一步
+
+第7步 `/gate-check` — Pre-Production → Production 阶段闸门验证。
+通过后进入 Sprint 1 实施。
+
+### 进入 Sprint 1 前需完成
+- [ ] Git repo 初始化
+- [ ] `/test-setup` — GUT 框架脚手架
+- [ ] `/story-readiness` — Sprint 1 全部 9 个 Story 验证
+
+---
+
+## 接手指南（给下一会话的 AI）
+
+项目在 `d:\AIcode\Claude-Code-Game-Studios\`。
+
+**游戏**: 星辰之轭 Part 2 — 回合制策略，2D俯视角像素风，拖线发兵+占点产兵+全歼制胜
+**引擎**: Godot 4.6 + GDScript
+**状态**: Pre-Production — `/sprint-plan` 完成。下一步 `/gate-check`。
+**Sprint Plan**: `production/sprints/sprint-plan.md` — 3 Sprints, 38 Stories, ~53.5h
+
+### /sprint-plan 输出 (2026-06-02)
+
+| Sprint | 日期 | Stories | 估算 | 目标 |
+|--------|------|---------|------|------|
+| S1 — Foundation | 06/03~09 | 9 | ~11.5h | 类型系统+EventBus+状态机+回合管线 |
+| S2 — Core War | 06/10~20 | 17 | ~27h | 星球/兵种/生产/战斗/占领/出征/国王/AI |
+| S3 — Playable | 06/21~28 | 12 | ~16h | 关卡+胜负+全UI+动画 |
+| **Total** | **26天** | **38** | **~53.5h** | |
+
+### 关键风险
+- planet-system 是 Core 层瓶颈，阻塞 7 个下游系统
+- Git repo 未初始化，需在 S1 前完成
+- GUT 测试框架未脚手架，需在 S1-001 后立即 `/test-setup`
+
+### 本轮（对话 5/5）完成内容
+
+- ✅ 7 个 Epic 全部拆分为 12 个 Story 文件
+- ✅ 所有 EPIC.md TR-ID 回填 + Stories 表格填充
+- ✅ `production/epics/index.md` 更新：19 epics / 38 stories
+- ✅ Feature 层：level-data(2), win-conditions(2)
+- ✅ Presentation 层：star-map-ui(2), deployment-ui(1), turn-control-ui(1), king-ui(2), battle-animation(2)
+
+### /create-stories 总计输出
+
+| 层 | Epics | Stories |
+|-----|-------|---------|
+| Foundation | 4 | 9 |
+| Core | 8 | 17 |
+| Feature | 2 | 4 |
+| Presentation | 5 | 8 |
+| **Total** | **19** | **38** |
+
+### 架构决策摘要
+- 数据: 混合格式 — GDScript enum/const + .tres Resource (ADR-0002)
+- 通信: EventBus 集中式 Signal 中转 (ADR-0001)
+- 状态: enum+match 状态机 5状态7转换 (ADR-0003)
+- 回合: 快照模型 5步骤 (ADR-0004)
+- 星球: PlanetDef(.tres静态) + RuntimePlanetData(Dictionary动态) (ADR-0005)
+- 战斗: 比例力量模型，确定性纯函数 (ADR-0006)
+- AI: 分阶段规则引擎，参数化难度 (ADR-0007)
+- 国王: 行动次数寿命模型，自动继位 (ADR-0008)
+
+### 关键依赖链
+Foundation(4) → Core 星球(瓶颈,7下游) → Core 兵种(可并行) → Core 生产/战斗/占领/出征/国王/AI → Feature(2) → Presentation(5)
+
+### Demo 目标（一个月）
+只做战争系统核心——拖线发兵+占点产兵+全歼制胜。不做 RPG 阶段。
+
+### 工具路径
+- Python: `D:\tools\python\python.exe` (3.11.9)
+- Godot: `E:\SteamLibrary\steamapps\common\Godot Engine\godot.windows.opt.tools.64.exe`
+
+### 用户偏好
+称"老大"，简洁风格，质量优先。
+
+## Session Extract — /architecture-review 2026-05-31
+- Verdict: PASS
+- Requirements: 129 total — 129 covered, 0 partial, 0 gaps
+- New TR-IDs registered: 129 (TR-DEF/EVT/GSM/TRN/PLT/UNT/PRD/CBT/OCC/DPL/KNG/AIE/LVL/WIN/SMU/DUI/TCU/KUI/BAN)
+- GDD revision flags: None
+- Top ADR gaps: None
+- Report: docs/architecture/architecture-review-2026-05-31.md
+- TR Registry: docs/architecture/tr-registry.yaml (129 entries)
