@@ -1,9 +1,9 @@
 # Session State — 2026-06-02
 
 <!-- STATUS -->
-Epic: Pre-Production
-Feature: /sprint-plan 完成
-Task: ✅ Sprint Plan 已生成 — 下一步 /gate-check Pre-Production→Production
+Epic: Production
+Feature: /gate-check PASS — Pre-Production→Production
+Task: ✅ 闸门通过 — 下一步 Sprint 1 实施
 <!-- /STATUS -->
 
 ---
@@ -80,13 +80,13 @@ Task: ✅ Sprint Plan 已生成 — 下一步 /gate-check Pre-Production→Produ
 
 ## 下一步
 
-第7步 `/gate-check` — Pre-Production → Production 阶段闸门验证。
-通过后进入 Sprint 1 实施。
+**阶段**: Production | **Sprint**: 1 — Foundation (9 stories / ~11.5h)
+**入口**: 在 Godot 4.6 中打开项目 → 安装 GdUnit4 → 运行 `/story-readiness` → `/dev-story`
 
-### 进入 Sprint 1 前需完成
-- [ ] Git repo 初始化
-- [ ] `/test-setup` — GUT 框架脚手架
-- [ ] `/story-readiness` — Sprint 1 全部 9 个 Story 验证
+### Sprint 1 开始前待办
+- [ ] 在 Godot 中安装 GdUnit4（AssetLib → 搜 "GdUnit4" → Install）
+- [ ] `/story-readiness` Sprint 1 全部 9 个 Story
+- [ ] 逐个 `/dev-story` 实施（按 S1-001 → S1-009 顺序）
 
 ---
 
@@ -96,10 +96,35 @@ Task: ✅ Sprint Plan 已生成 — 下一步 /gate-check Pre-Production→Produ
 
 **游戏**: 星辰之轭 Part 2 — 回合制策略，2D俯视角像素风，拖线发兵+占点产兵+全歼制胜
 **引擎**: Godot 4.6 + GDScript
-**状态**: Pre-Production — `/sprint-plan` 完成。下一步 `/gate-check`。
+**状态**: Production — `/gate-check` PASS。下一步 Sprint 1 实施。
 **Sprint Plan**: `production/sprints/sprint-plan.md` — 3 Sprints, 38 Stories, ~53.5h
 
-### /sprint-plan 输出 (2026-06-02)
+### /gate-check 补充完成 (2026-06-02)
+
+- [x] `tests/` — GUT 框架 + CI/CD (.github/workflows/tests.yml)
+- [x] `design/art/art-bible.md` — 完整 9 节艺术圣经
+- [x] `design/ux/` — star-map + deployment + turn-control + hud + interaction-patterns
+- [x] `design/accessibility-requirements.md` — Basic Tier
+- [x] `design/assets/entity-inventory.md` — 25+ 资产清单
+- [x] `production/qa/qa-plan-sprint-1-2026-06-02.md` — Sprint 1 QA 计划
+- [x] `src/` — Vertical Slice 可玩原型：6 autoloads + 3 UI + game.tscn
+- [x] `prototypes/REPORT.md` — Vertical Slice PROCEED 判决
+- [x] `/gate-check` — **PASS** 🟢 → `production/stage.txt` = Production
+
+### 关键文件路径
+
+| 类别 | 路径 |
+|------|------|
+| 阶段 | `production/stage.txt` → Production |
+| Sprint Plan | `production/sprints/sprint-plan.md` |
+| QA Plan | `production/qa/qa-plan-sprint-1-2026-06-02.md` |
+| Art Bible | `design/art/art-bible.md` |
+| UX | `design/ux/*.md` (6 files) |
+| 资产清单 | `design/assets/entity-inventory.md` |
+| 垂直切片 | `prototypes/REPORT.md` |
+| 源代码 | `src/autoload/*.gd` (6) + `src/ui/*.gd` (3) + `src/game.gd` |
+| 项目配置 | `project.godot` |
+| 测试 | `tests/` (GUT scaffold + example test) |
 
 | Sprint | 日期 | Stories | 估算 | 目标 |
 |--------|------|---------|------|------|

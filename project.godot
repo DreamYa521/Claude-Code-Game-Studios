@@ -1,0 +1,41 @@
+; Godot 4.6 Project Configuration
+; 星辰之轭 Part 2 — Vertical Slice Prototype
+
+config_version=5
+
+[application]
+config/name="星辰之轭 Part 2 (Prototype)"
+config/version="0.1.0"
+run/main_scene="res://src/game.tscn"
+config/features=PackedStringArray("4.6")
+config/icon=""
+
+[autoload]
+DataDef="*res://src/autoload/data_def.gd"
+EventBus="*res://src/autoload/event_bus.gd"
+GameState="*res://src/autoload/game_state.gd"
+TurnManager="*res://src/autoload/turn_manager.gd"
+PlanetSystem="*res://src/autoload/planet_system.gd"
+DeploymentSystem="*res://src/autoload/deployment_system.gd"
+
+[display]
+window/size/viewport_width=1024
+window/size/viewport_height=768
+window/size/resizable=true
+window/stretch/mode="canvas_items"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0
+
+[input]
+end_turn_space={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+end_turn_e={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":69,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
