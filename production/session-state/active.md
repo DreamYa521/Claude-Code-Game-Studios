@@ -90,14 +90,69 @@ Task: ✅ 闸门通过 — 下一步 Sprint 1 实施
 
 ---
 
-## 接手指南（给下一会话的 AI）
+## 接手指南（给下一会话的 AI）→ 从这里开始
 
 项目在 `d:\AIcode\Claude-Code-Game-Studios\`。
 
 **游戏**: 星辰之轭 Part 2 — 回合制策略，2D俯视角像素风，拖线发兵+占点产兵+全歼制胜
-**引擎**: Godot 4.6 + GDScript
-**状态**: Production — `/gate-check` PASS。下一步 Sprint 1 实施。
-**Sprint Plan**: `production/sprints/sprint-plan.md` — 3 Sprints, 38 Stories, ~53.5h
+**引擎**: Godot 4.6.3（已更新 VERSION.md + CI）
+**阶段**: Production（`production/stage.txt`）
+**Git**: `DreamYa521/Claude-Code-Game-Studios`（Public, main 分支，已推送）
+**用户**: 称"老大"，追求质量，DreamYa521 / 3311453043@qq.com
+
+### 本轮（对话 6）完成
+
+- [x] GitHub 仓库配置 + 推送
+- [x] `/sprint-plan` — 3 Sprints, 38 Stories, ~53.5h
+- [x] `/gate-check` — Pre-Production → Production **PASS** 🟢
+- [x] `/test-setup` — GUT 框架 + CI/CD + 示例测试
+- [x] `/art-bible` — 完整 9 节艺术圣经
+- [x] `/ux-design` — 星图/出征/回合控制/HUD/交互模式
+- [x] `design/accessibility-requirements.md` — Basic Tier
+- [x] `design/assets/entity-inventory.md` — 25+ 资产清单
+- [x] `/qa-plan` Sprint 1 — 9 个 Story 全部测试计划
+- [x] Vertical Slice — `src/` 可玩原型（6 autoloads + 3 UI + game.tscn）
+- [x] Godot 引擎版本更新 4.6 → 4.6.3
+
+### 下一步（优先级顺序）
+
+1. **老大在 Godot 4.6.3 中安装 GdUnit4**（AssetLib → 搜 "GdUnit4" → Install）
+2. **`/story-readiness`** — 验证 Sprint 1 全部 9 个 Story 是否可实施
+3. **`/dev-story`** — 按 S1-001 → S1-009 顺序逐个实施
+4. 每个 Story 完成后 `/story-done` 验证 → 进入下一个
+
+### 核心文件速查
+
+| 文件 | 用途 |
+|------|------|
+| `production/stage.txt` | 当前阶段 |
+| `production/sprints/sprint-plan.md` | Sprint 计划（3 sprints） |
+| `production/qa/qa-plan-sprint-1-2026-06-02.md` | Sprint 1 QA 计划 |
+| `design/art/art-bible.md` | 视觉规范（颜色/形状/氛围/禁止） |
+| `design/ux/hud.md` | 屏幕布局 + Z-Order |
+| `design/ux/interaction-patterns.md` | 7 个交互模式 |
+| `src/` | Vertical Slice 原型代码（参考用） |
+| `tests/` | GUT 框架（需 GdUnit4 插件） |
+| `project.godot` | Godot 项目配置（autoloads 已配好） |
+| `docs/engine-reference/godot/VERSION.md` | Godot 4.6.3 版本钉 |
+
+### Sprint 1 依赖顺序
+
+```
+S1-001 data-definitions: Enums & Constants (Logic, 1.5h)
+  → S1-002 data-definitions: Resource Classes (Config, 1.5h)
+    → S1-003 data-definitions: Resource Loading (Integration, 1h)
+S1-004 event-bus: Signal Declarations (Logic, 1h) [可和 S1-002 并行]
+  → S1-005 event-bus: Recursion Guard (Logic, 1h)
+    → S1-006 event-bus: Presentation Signals (Logic, 1h)
+S1-007 gamestate-manager: State Machine (Logic, 1.5h) [需 S1-004]
+S1-008 turn-manager: Phase Loop (Logic, 2h) [需 S1-004, S1-007]
+  → S1-009 turn-manager: Snapshot Engine (Logic, 2h)
+```
+
+### 工具路径
+- Python: `D:\tools\python\python.exe` (3.11.9)
+- Godot: `E:\SteamLibrary\steamapps\common\Godot Engine\godot.windows.opt.tools.64.exe`
 
 ### /gate-check 补充完成 (2026-06-02)
 
